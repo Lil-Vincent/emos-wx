@@ -1,0 +1,52 @@
+@import url("../../style.less");
+.logo{
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	margin-top: 30%;
+}
+// 主标题
+.logo-title{
+	font-size: 48rpx;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 8%;
+	color: @font-color;
+}
+
+// 副标题
+.logo-subtitle{
+	font-size: 30rpx;
+	text-align: center;
+	color: @font-color;
+	margin-top: 20rpx;
+}
+
+.login-btn {
+	widows: 60%;
+	//绝对定位
+	position: absolute;
+	bottom: 20%;
+	left: 40%;
+	background-color: @background-color;
+	box-sizing: border-box;
+	//点击前后
+	&:active{
+		background-color: @background-color-active;
+	}
+}
+
+.register-container{
+	position: absolute;
+	bottom: 50rpx;
+	width: 100%;
+	text-align: center;
+	font-size: 30rpx;
+	columns: @font-color;
+	.register{
+		color: @background-color;
+	}
+}
+
+
