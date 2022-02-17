@@ -38,8 +38,8 @@
 				  provider: 'weixin',
 				  success: function (resp) {
 				    let code = resp.code;
-					console.log(code)
-				    // 获取用户信息
+					// console.log(code)
+				    // console.log(that.host)
 				    uni.getUserProfile({
 				      desc: '获取用户信息',
 				      success: function (resp) {
@@ -47,6 +47,19 @@
 				        let avatarUrl = resp.userInfo.avatarUrl;
 						console.log(nickName)
 						console.log(avatarUrl)
+						let data = {
+							code: code,
+							nickname: nickName,
+							photo: avatarUrl,
+							registerCode: that.registerCode
+						};
+						that.ajax(that.url.register, 'POST', data, function(resp) {
+							let permission = resp.data.permission;
+							uni.setStorageSync('permission', permission);
+							console.log(permission)
+							//跳转到index页面
+						});
+
 				      }
 				    });
 				  }
