@@ -4,7 +4,7 @@
 		    "path" : "pages/login/login",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "",
+		        "navigationBarTitleText": "疫情在线办公",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -27,6 +27,9 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "用户注册",
+				
+				
+				
                 "enablePullDownRefresh": false
             }
             
