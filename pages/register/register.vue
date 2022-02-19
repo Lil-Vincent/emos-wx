@@ -60,10 +60,10 @@
 	                        uni.setStorageSync('token', token);
 	                        uni.setStorageSync('permission', permission);
 							console.log(permission)
-							// console.log(code)
-	                        // uni.switchTab({
-	                        //     url: '../index/index'
-	                        // });
+							console.log(code)
+	                        uni.switchTab({
+	                            url: '../index/index'
+	                        });
 	                    });
 	                }
 	            });
