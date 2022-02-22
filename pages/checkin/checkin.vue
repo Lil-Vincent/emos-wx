@@ -11,6 +11,9 @@
 </template>
 
 <script>
+	var QQMapWX = require('../../lib/qqmap-wx-jssdk.min.js');
+	var qqmapsdk;
+
 	export default {
 		data() {
 			return {
@@ -20,6 +23,11 @@
 				showCamera: true,
 				showImage: false
 			}
+		},
+		onLoad: function() {
+			qqmapsdk = new QQMapWX({
+				key: 'LVBBZ-24PKR-TVHWW-W5IBP-GRBP7-ZYFR6'
+			});
 		},
 		methods: {
 			clickBtn: function() {
@@ -39,6 +47,41 @@
 				} 
 				else {
 					//这里是点击签到按钮
+					uni.showLoading({
+						title: '签到中请稍后'
+					});
+					
+					setTimeout(function() {
+						uni.hideLoading();  
+					}, 30000);
+					
+					//获取地理定位
+					uni.getLocation({
+						type: 'wgs84',
+						success: function(resp) {
+							let latitude = resp.latitude;
+							let longitude = resp.longitude;
+							// console.log(latitude)
+							// console.log(longitude)
+							qqmapsdk.reverseGeocoder({
+								location: {
+									latitude: latitude,
+									longitude: longitude
+								},
+								success: function(resp) {
+									console.log(resp.result);
+									let address = resp.result.address;
+									let addressComponent = resp.result.address_component;
+									let nation = addressComponent.nation;
+									let province = addressComponent.province;
+									let city = addressComponent.city;
+									let district = addressComponent.district;
+								}
+							})
+
+						}
+					})
+
 				}
 			},
 			afresh: function() {
