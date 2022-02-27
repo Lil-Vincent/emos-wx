@@ -62,6 +62,10 @@
 					<image src="../../static/nav-12.png" mode="widthFix" class="icon"></image>
 					<text class="name">采购申请</text>
 				</view>
+				<uni-popup ref="popupMsg" type="top">
+					<uni-popup-message type="success" :message="'接收到' + lastRows + '条消息'" :duration="2000"/>
+				</uni-popup>
+
 			</view>
 		</view>
 
@@ -69,14 +73,47 @@
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/uni-popup.vue';
+	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue';
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue';
 	export default {
+		components: {
+			uniPopup,
+			uniPopupMessage,
+			uniPopupDialog
+		},
 		data() {
 			return {
-				unreadMessage:0
-			}
+				unreadMessage:0,
+  			}
 		},
-		onLoad() {
-
+		onLoad:function() {
+			// 监听事件
+			let that = this;
+			uni.$on('showMessage', function() {
+				that.$refs.popupMsg.open();
+			});
+		},
+		onUnload:function() {
+			// 移除监听事件
+			uni.$off('showMessage');
+		},
+		onShow: function() {
+			let that = this;
+			that.timer = setInterval(function() {
+				that.ajax(that.url.refreshMessage, 'GET', null, function(resp) {
+					that.unreadRows = resp.data.unreadRows;
+					console.log(resp.data.toString())
+					that.lastRows = resp.data.lastRows;
+					console.log(that.lastRows)
+					if (that.lastRows > 0) {
+						uni.$emit('showMessage');
+					}
+				});
+			}, 5 * 1000);
+		},
+		onHide:function() {
+			clearInterval(this.timer);
 		},
 		methods: {
 			toPage: function(name, url) {

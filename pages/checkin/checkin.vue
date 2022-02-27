@@ -24,6 +24,21 @@
 				showImage: false
 			}
 		},
+		onShow:function(){
+			let that=this
+			that.ajax(that.url.validCanCheckIn,"GET",null,function(resp){
+				let msg=resp.data.msg
+				if(msg!="可以考勤"){
+					that.canCheckin=false
+					setTimeout(function(){
+						uni.showToast({
+							title:msg,
+							icon:"none"
+						})
+					},1000)
+				}
+			})
+		},
 		onLoad: function() {
 			qqmapsdk = new QQMapWX({
 				key: 'LVBBZ-24PKR-TVHWW-W5IBP-GRBP7-ZYFR6'
@@ -137,6 +152,9 @@
 														title: '签到成功',
 														complete: function() {
 															//TODO 跳转到签到结果统计页面
+															uni.navigateTo({
+																url:"../checkin_result/checkin_result"
+															})
 														}
 													});
 												}
