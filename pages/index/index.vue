@@ -11,12 +11,12 @@
 				<image mode="widthFix" src="https://static-1259640365.cos.ap-guangzhou.myqcloud.com/img/banner/3.png"></image>
 			</swiper-item>
 		</swiper>
-		<view class="notify-container">
+		<view class="notify-container" @tap="toPage('消息提醒', '/pages/message_list/message_list')">
 			<view class="notify-title">
 				<image src="../../static/message.png" mode="widthFix" class="notify-icon"></image>
 				消息提醒
 			</view>
-			<view class="notify-content">你有{{unreadMessage}}条消息未读</view>
+			<view class="notify-content">你有{{unreadRows}}条消息未读</view>
 			<image src="../../static/in.png" mode="widthFix" class="more-icon"></image>
 		</view>
 		<view class="nav-container">
@@ -65,7 +65,6 @@
 				<uni-popup ref="popupMsg" type="top">
 					<uni-popup-message type="success" :message="'接收到' + lastRows + '条消息'" :duration="2000"/>
 				</uni-popup>
-
 			</view>
 		</view>
 
@@ -84,7 +83,14 @@
 		},
 		data() {
 			return {
-				unreadMessage:0,
+				unreadRows: 0,
+				lastRows: 0,
+				timer: null,
+				calendar: [],
+				meetingPage: 1,
+				meetingLength: 20,
+				meetingList: [],
+				isMeetingLastPage: false
   			}
 		},
 		onLoad:function() {
@@ -92,6 +98,18 @@
 			let that = this;
 			uni.$on('showMessage', function() {
 				that.$refs.popupMsg.open();
+			});
+			that.ajax(that.url.refreshMessage, 'GET', null, function(resp) {
+				that.unreadRows = resp.data.unreadRows;
+				console.log(resp.data.toString())
+				that.lastRows = resp.data.lastRows;
+				console.log("lastRows")
+				console.log(that.lastRows)
+				console.log("unreadRows")
+				console.log(that.unreadRows)
+				if (that.lastRows > 0) {
+					uni.$emit('showMessage');
+				}
 			});
 		},
 		onUnload:function() {

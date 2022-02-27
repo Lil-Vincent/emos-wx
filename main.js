@@ -19,7 +19,11 @@ Vue.prototype.url = {
 	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
 	searchUserSummary: baseUrl + "/user/searchUserSummary",
 	searchMonthCheckin:baseUrl+"/checkin/searchMonthCheckin",
-	refreshMessage: baseUrl + "/message/refreshMessage"
+	refreshMessage: baseUrl + "/message/refreshMessage",
+	searchMessageByPage: baseUrl + "/message/searchMessageByPage",
+	searchMessageById: baseUrl + "/message/searchMessageById",
+	updateUnreadMessage: baseUrl + "/message/updateUnreadMessage",
+	deleteMessageRefById: baseUrl + "/message/deleteMessageRefById"
 }
 
 
