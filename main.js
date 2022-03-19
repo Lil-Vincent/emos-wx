@@ -23,10 +23,114 @@ Vue.prototype.url = {
 	searchMessageByPage: baseUrl + "/message/searchMessageByPage",
 	searchMessageById: baseUrl + "/message/searchMessageById",
 	updateUnreadMessage: baseUrl + "/message/updateUnreadMessage",
-	deleteMessageRefById: baseUrl + "/message/deleteMessageRefById"
+	deleteMessageRefById: baseUrl + "/message/deleteMessageRefById",
+	searchRoleOwnPermission: baseUrl + "/role/searchRoleOwnPermission",
+	searchAllPermission: baseUrl+"/role/searchAllPermission",
+	insertRole: baseUrl + "/role/insertRole",
+	updateRolePermissions: baseUrl + "/role/updateRolePermissions",
+	searchAllRole:baseUrl+"/role/searchAllRole",
+	searchAllDept: baseUrl + "/dept/searchAllDept",
+	insertDept: baseUrl + "/dept/insertDept",
+	deleteDeptById: baseUrl + "/dept/deleteDeptById",
+	updateDeptById: baseUrl + "/dept/updateDeptById",
+	insertUser: baseUrl + "/user/insertUser",
+	searchUserGroupByDept: baseUrl + "/user/searchUserGroupByDept",
+
+	searchUserInfo: baseUrl + "/user/searchUserInfo",
+	searchUserSelfInfo: baseUrl + "/user/searchUserSelfInfo",
+	updateUserInfo: baseUrl + "/user/updateUserInfo"
+
+
+}
+
+Date.prototype.format = function(fmt) {
+	var o = {
+		"M+": this.getMonth() + 1, //月份 
+		"d+": this.getDate(), //日 
+		"h+": this.getHours(), //小时 
+		"m+": this.getMinutes(), //分 
+		"s+": this.getSeconds(), //秒 
+		"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		"S": this.getMilliseconds() //毫秒 
+	};
+	if (/(y+)/.test(fmt)) {
+		fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	}
+	for (var k in o) {
+		if (new RegExp("(" + k + ")").test(fmt)) {
+			fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		}
+	}
+	return fmt;
+}
+
+Vue.prototype.checkValidTel = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	} else if (!/^1[0-9]{10}$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正确"
+		})
+		return true
+	}
+	return false
 }
 
 
+Vue.prototype.checkValidEmail = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	} else if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正确"
+		})
+		return true
+	}
+	return false
+}
+
+
+Vue.prototype.checkValidStartAndEnd = function(start, end) {
+	let d1 = new Date("2000/01/01 " + start + ":00");
+	let d2 = new Date("2000/01/01 " + end + ":00");
+	if (d2.getTime() <= d1.getTime()) {
+		uni.showToast({
+			icon: "none",
+			title: "结束时间必须大于开始时间"
+		})
+		return true
+	}
+	return false
+}
+
+
+Vue.prototype.checkValidName = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	} else if (!/^[\u4e00-\u9fa5]{2,15}$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正确"
+		})
+		return true
+	}
+	return false
+}
+ 
  
 Vue.prototype.checkPermission = function(perms) {
 	let permission = uni.getStorageSync("permission")
@@ -72,4 +176,23 @@ Vue.prototype.ajax = function(url, method, data, fun) {
 	});
 }
 
-
+Vue.prototype.checkNull = function(data, name) {
+	if (data == null) {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	}
+	return false
+}
+Vue.prototype.checkBlank = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能为空"
+		})
+		return true
+	}
+	return false
+}
