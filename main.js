@@ -9,7 +9,7 @@ const app = new Vue({
 app.$mount()
 
 let baseUrl = "http://127.0.0.1:8080/emos-wx-api"
-Vue.prototype.host = "http://127.0.0.1:8080/emos-wx-api"
+// Vue.prototype.host = "http://127.0.0.1:8080/emos-wx-api"
 Vue.prototype.url = {
 	register: baseUrl + "/user/register",
 	login: baseUrl + "/user/login",
@@ -35,11 +35,10 @@ Vue.prototype.url = {
 	updateDeptById: baseUrl + "/dept/updateDeptById",
 	insertUser: baseUrl + "/user/insertUser",
 	searchUserGroupByDept: baseUrl + "/user/searchUserGroupByDept",
-
 	searchUserInfo: baseUrl + "/user/searchUserInfo",
 	searchUserSelfInfo: baseUrl + "/user/searchUserSelfInfo",
-	updateUserInfo: baseUrl + "/user/updateUserInfo"
-
+	updateUserInfo: baseUrl + "/user/updateUserInfo",
+	searchMyMeetingListByPage: baseUrl + "/meeting/searchMyMeetingListByPage"
 
 }
 

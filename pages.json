@@ -38,7 +38,8 @@
 		{
 			"path": "pages/meeting_list/meeting_list",
 			"style": {
-				"navigationBarTitleText": "会议"
+				"navigationBarTitleText": "会议",
+				"enablePullDownRefresh": false
 			 }
 		},
 		{
